@@ -11,4 +11,4 @@ def index():
     return f"<p>client: {client_ip}:{client_port} <br> server ip: {server_ip} <br> protocol: {protocol}</p>"
 
 if __name__ == "__main__":
-    app.run(port=80)
+    app.run(host="0.0.0.0", port=80)
