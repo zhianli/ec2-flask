@@ -28,12 +28,14 @@ Resources:
             # Ensure AWS CFN Bootstrap is the latest
             yum install -y aws-cfn-bootstrap
             yum install -y git
-            git clone https://github.com/zhianli/ec2-flask.git
+            mkdir /var/www/html/logs
+            git clone https://github.com/zhianli/ec2-flask.git /var/www/html
             yum install httpd -y
             yum install mod_wsgi
+            pip3 install flask
+            mv /var/www/html/website.conf /etc/httpd/conf.d/website.conf
             systemctl start httpd
             systemctl enable httpd
-            pip3 install flask
   MySecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
