@@ -31,7 +31,7 @@ Resources:
             mkdir /var/www/html/logs
             git clone https://github.com/zhianli/ec2-flask.git /var/www/html
             yum install httpd -y
-            yum install mod_wsgi
+            yum install python3-mod_wsgi -y
             pip3 install flask
             mv /var/www/html/website.conf /etc/httpd/conf.d/website.conf
             systemctl start httpd
