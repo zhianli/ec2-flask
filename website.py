@@ -1,5 +1,5 @@
 import socket
-from flask import Flask,request,make_response,g,request
+from flask import Flask,request,make_response,g,request,abort
 
 app = Flask(__name__)
 
@@ -20,10 +20,12 @@ def index():
     response = make_response(f"{g.response}")
     return response
 
-@app.route('/<http_status>')
-def return_http_status(http_status):
-    response = make_response(f"{g.response} <b> Status Code:</b> {http_status}</p>")
-    return response, http_status
+@app.route('/status/<int:status_code>')
+def return_status(status_code):
+    if status_code < 100 or status_code >= 600:
+        abort(404)
+    return f"Status code: {status_code}", status_code
+    
 
 @app.route('/headers')
 def headers():
