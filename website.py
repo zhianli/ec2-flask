@@ -40,7 +40,7 @@ def cookies():
     cookie_header = request.headers.get('Cookie')
     if cookie_header:
         cookies = dict(x.strip().split('=') for x in cookie_header.split(';'))
-        my_cookie = cookies.get('my_cookie')
+        my_cookie = cookies.get('cookie')
         if my_cookie:
             return f'The value of my_cookie is {my_cookie}'
         else:
