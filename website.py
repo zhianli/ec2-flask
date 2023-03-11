@@ -35,5 +35,13 @@ def headers():
     headers_str = '<br>'.join(f'{key}: {value}' for key, value in sorted_headers)
     return headers_str
 
+@app.route('/cookies')
+def cookies():
+    my_cookie = request.cookies.get('my_cookie')
+    if my_cookie:
+        return f'The value of my_cookie is {my_cookie}'
+    else:
+        return 'The my_cookie cookie is not present in the request'
+
 if __name__ == "__main__":
     app.run(host=server_ip, port=80)
