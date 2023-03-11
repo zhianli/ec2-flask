@@ -7,6 +7,7 @@ server_ip = socket.gethostbyname(socket.gethostname()) # https://stackoverflow.c
 
 @app.before_request
 def set_global_value():
+
     # set the client IP, Port and protocol
     g.client_ip = request.remote_addr # https://www.adamsmith.haus/python/answers/how-to-get-an-ip-address-using-flask-in-python
     g.client_port = request.environ.get('REMOTE_PORT') # https://stackoverflow.com/questions/34785337/how-to-use-flask-get-clients-port
@@ -25,7 +26,6 @@ def return_status(status_code):
     if status_code < 200 or status_code >= 600:
         abort(404)
     return f"Status code: {status_code}", status_code
-    
 
 @app.route('/headers')
 def headers():
