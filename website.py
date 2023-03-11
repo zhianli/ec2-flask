@@ -31,7 +31,9 @@ def return_http_status(http_status):
 @app.route('/headers')
 def headers():
     headers = request.headers
-    return str(headers)
+    sorted_headers = sorted(headers.items(), key=lambda x: x[0].lower())
+    headers_str = '<br>'.join(f'{key}: {value}' for key, value in sorted_headers)
+    return headers_str
 
 if __name__ == "__main__":
     app.run(host=server_ip, port=80)
