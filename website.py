@@ -37,11 +37,16 @@ def headers():
 
 @app.route('/cookies')
 def cookies():
-    my_cookie = request.cookies.get('cookie')
-    if my_cookie:
-        return f'The value of my_cookie is {my_cookie}'
+    cookie_header = request.headers.get('Cookie')
+    if cookie_header:
+        cookies = dict(x.strip().split('=') for x in cookie_header.split(';'))
+        my_cookie = cookies.get('my_cookie')
+        if my_cookie:
+            return f'The value of my_cookie is {my_cookie}'
+        else:
+            return 'The my_cookie cookie is not present in the request'
     else:
-        return 'The my_cookie cookie is not present in the request'
+        return 'No cookies were sent with the request'
 
 if __name__ == "__main__":
     app.run(host=server_ip, port=80)
