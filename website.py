@@ -33,7 +33,8 @@ def headers():
     headers = []
     for header, value in sorted(request.headers.items()):
         headers.append(f'{header}: {value}')
-    return '<br>'.join(headers)
+    headers.append(f'Cookies: {request.cookies}')
+    return '\n'.join(headers)
 
 if __name__ == "__main__":
     app.run(host=server_ip, port=80)
