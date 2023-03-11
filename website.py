@@ -22,7 +22,7 @@ def index():
 
 @app.route('/status/<int:status_code>')
 def return_status(status_code):
-    if status_code < 100 or status_code >= 600:
+    if status_code < 200 or status_code >= 600:
         abort(404)
     return f"Status code: {status_code}", status_code
     
