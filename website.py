@@ -30,23 +30,10 @@ def return_http_status(http_status):
 
 @app.route('/headers')
 def headers():
-    headers = request.headers
-    sorted_headers = sorted(headers.items(), key=lambda x: x[0].lower())
-    headers_str = '<br>'.join(f'{key}: {value}' for key, value in sorted_headers)
-    return headers_str
-
-@app.route('/cookies')
-def cookies():
-    cookie_header = request.headers.get('Cookie')
-    if cookie_header:
-        cookies = dict(x.strip().split('=') for x in cookie_header.split(';'))
-        my_cookie = cookies.get('cookie')
-        if my_cookie:
-            return f'The value of my_cookie is {my_cookie}'
-        else:
-            return 'The my_cookie cookie is not present in the request'
-    else:
-        return 'No cookies were sent with the request'
+    headers = []
+    for header, value in sorted(request.headers.items()):
+        headers.append(f'{header}: {value}')
+    return '<br>'.join(headers)
 
 if __name__ == "__main__":
     app.run(host=server_ip, port=80)
