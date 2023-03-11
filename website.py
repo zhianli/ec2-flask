@@ -37,7 +37,7 @@ def headers():
 
 @app.route('/cookies')
 def cookies():
-    my_cookie = request.cookies.get('my_cookie')
+    my_cookie = request.cookies.get('cookie')
     if my_cookie:
         return f'The value of my_cookie is {my_cookie}'
     else:
