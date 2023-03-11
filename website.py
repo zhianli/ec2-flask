@@ -31,9 +31,11 @@ def return_http_status(http_status):
 @app.route('/headers')
 def headers():
     headers = []
-    for header, value in sorted(request.headers.items()):
+    for header, value in request.headers.items():
         headers.append(f'{header}: {value}')
-    headers.append(f'Cookies: {request.cookies}')
+    cookies = request.cookies
+    for cookie in sorted(cookies):
+        headers.append(f'Cookie: {cookie}={cookies.get(cookie)}')
     return '<br>'.join(headers)
 
 if __name__ == "__main__":
