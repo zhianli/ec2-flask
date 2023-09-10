@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Default Title{% endblock %}</title>
+    <style>
+        .button-container {
+            text-align: center;
+        }
+        .route-button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>
+            <div class="button-container">
+                {% for route in routes %}
+                    <a href="{{ route }}" class="route-button">{{ route }}</a>
+                {% endfor %}
+            </div>
+        </h1>
+    </div>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}IP Info{% endblock %}
+
+{% block content %}
+    <!-- Your route-specific content goes here -->
+    <p>client ip: {{ ip_addresses[ 'client_ip'] }} <br> 
+        client port: {{ ip_addresses['client_port'] }} <br> 
+        server ip: {{ ip_addresses['server_ip'] }} <br> 
+        protocol: {{ ip_addresses['protocol'] }}
+    </p>
+{% endblock %}

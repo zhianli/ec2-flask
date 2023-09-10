@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Headers{% endblock %}
+
+{% block content %}
+    <!-- Your route-specific content goes here -->
+    <p>
+        {% for value in headers %}
+        {{value}}<br>
+        {% endfor %}
+    </p>
+{% endblock %}

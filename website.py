@@ -1,5 +1,5 @@
 import socket
-from flask import Flask, request, make_response, g, abort, url_for
+from flask import Flask, request, make_response, g, abort, url_for, render_template, redirect
 
 app = Flask(__name__)
 
@@ -10,22 +10,42 @@ def set_global_value():
     g.client_ip = request.remote_addr
     g.client_port = request.environ.get('REMOTE_PORT')
     g.protocol = request.environ.get('SERVER_PROTOCOL')
-    g.response = f"<p>client ip: {g.client_ip} <br> client port: {g.client_port} <br> server ip: {server_ip} <br> protocol: {g.protocol} </p>"
+    g.routes = sorted([rule.rule.lstrip('/') for rule in app.url_map.iter_rules() if 'GET' in rule.methods and rule.endpoint != 'static' and rule.rule != '/'])
 
-@app.route("/")
+@app.context_processor
+def inject_routes():
+    return dict(routes=g.routes)
+
+@app.route('/')
 def index():
-    response = make_response(f"{g.response}")
-    return response
+    return redirect('/homepage')
 
-# @app.route('/list-routes')
-# def list_routes():
-#     # Generate an HTML list of all available routes
-#     routes = [rule.rule for rule in app.url_map.iter_rules() if 'GET' in rule.methods]
-#     html_list = '<ul>'
-#     for route in routes:
-#         html_list += f"<li>{route}</li>"
-#     html_list += '</ul>'
-#     return f"<h2>List of Available Routes:</h2>{html_list}"
+@app.route('/homepage')
+def homepage():
+    return render_template('homepage.html')
+
+@app.route('/ip_info')
+def ip_addresses():
+    ip_info = {
+        "client_ip": g.client_ip,
+        "client_port": g.client_port,
+        "server_ip": server_ip,
+        "protocol": g.protocol
+    }
+    return render_template('ip_info.html', ip_addresses=ip_info)
+
+@app.route('/headers')
+def headers():
+    headers = []
+    for header in sorted(request.headers.keys()):
+        headers.append(f'{header}: {request.headers.get(header)}')
+    # return '<br>'.join(headers)
+    return render_template('headers.html', headers=headers)
+
+@app.route('/status')
+def status():
+    return render_template('status.html')
+
 
 @app.route('/status/<int:status_code>')
 def return_status(status_code):
@@ -33,12 +53,5 @@ def return_status(status_code):
         abort(404)
     return f"Status code: {status_code}", status_code
 
-@app.route('/headers')
-def headers():
-    headers = []
-    for header in sorted(request.headers.keys()):
-        headers.append(f'{header}: {request.headers.get(header)}')
-    return '<br>'.join(headers)
-
 if __name__ == "__main__":
-    app.run(host=server_ip, port=80)
+    app.run(host=server_ip, port=80, debug=True)
