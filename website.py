@@ -1,25 +1,31 @@
 import socket
-from flask import Flask,request,make_response,g,request,abort
+from flask import Flask, request, make_response, g, abort, url_for
 
 app = Flask(__name__)
 
-server_ip = socket.gethostbyname(socket.gethostname()) # https://stackoverflow.com/questions/166506/finding-local-ip-addresses-using-pythons-stdlib
+server_ip = socket.gethostbyname(socket.gethostname())
 
 @app.before_request
 def set_global_value():
-
-    # set the client IP, Port and protocol
-    g.client_ip = request.remote_addr # https://www.adamsmith.haus/python/answers/how-to-get-an-ip-address-using-flask-in-python
-    g.client_port = request.environ.get('REMOTE_PORT') # https://stackoverflow.com/questions/34785337/how-to-use-flask-get-clients-port
+    g.client_ip = request.remote_addr
+    g.client_port = request.environ.get('REMOTE_PORT')
     g.protocol = request.environ.get('SERVER_PROTOCOL')
-    
-    #generic response to show client IP, Port, protocol and server IP
     g.response = f"<p>client ip: {g.client_ip} <br> client port: {g.client_port} <br> server ip: {server_ip} <br> protocol: {g.protocol} </p>"
 
 @app.route("/")
 def index():
     response = make_response(f"{g.response}")
     return response
+
+# @app.route('/list-routes')
+# def list_routes():
+#     # Generate an HTML list of all available routes
+#     routes = [rule.rule for rule in app.url_map.iter_rules() if 'GET' in rule.methods]
+#     html_list = '<ul>'
+#     for route in routes:
+#         html_list += f"<li>{route}</li>"
+#     html_list += '</ul>'
+#     return f"<h2>List of Available Routes:</h2>{html_list}"
 
 @app.route('/status/<int:status_code>')
 def return_status(status_code):
