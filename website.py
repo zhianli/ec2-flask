@@ -10,7 +10,13 @@ def set_global_value():
     g.client_ip = request.remote_addr
     g.client_port = request.environ.get('REMOTE_PORT')
     g.protocol = request.environ.get('SERVER_PROTOCOL')
-    g.routes = sorted([rule.rule.lstrip('/') for rule in app.url_map.iter_rules() if 'GET' in rule.methods and rule.endpoint != 'static' and rule.rule != '/'])
+    g.routes = sorted([
+        rule.rule.lstrip('/') for rule in app.url_map.iter_rules()
+        if 'GET' in rule.methods
+        and rule.endpoint != 'static'
+        and rule.rule != '/' # Exclude the root route
+        and not rule.rule.startswith('/process/') # Exclude the /process/<int:status_code> route
+    ])
 
 @app.context_processor
 def inject_routes():
@@ -46,8 +52,7 @@ def headers():
 def status():
     return render_template('status.html')
 
-
-@app.route('/status/<int:status_code>')
+@app.route('/process/<int:status_code>')
 def return_status(status_code):
     if status_code < 200 or status_code >= 600:
         abort(404)

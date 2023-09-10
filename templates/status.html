@@ -3,7 +3,26 @@
 {% block title %}Status{% endblock %}
 
 {% block content %}
-    <!-- Your route-specific content goes here -->
-    <h1>Status</h1>
-    <p>This is the status content.</p>
+<!-- Your route-specific content goes here -->
+<h1>status</h1>
+<ul>
+    <li><a href="javascript:void(0);" onclick="handleClick(200)">200 OK</a></li>
+    <li><a href="javascript:void(0);" onclick="handleClick(404)">404 Not Found</a></li>
+    <li><a href="javascript:void(0);" onclick="handleClick(500)">500 Internal Server Error</a></li>
+    <li><a href="javascript:void(0);" onclick="handleClick(504)">504 Gateway Timeout</a></li>
+    <li><a href="javascript:void(0);" onclick="handleClick(601)">601</a></li>
+    <!-- Add more status_code as needed -->
+</ul>
+<div id="result"></div>
+<script>
+    function handleClick(statusCode) {
+        // Send a GET request to Flask with the selected status code
+        fetch(`/process/${statusCode}`)
+            .then(response => response.text())
+            .then(data => {
+                // Display the data in a specific HTML element
+                document.getElementById('result').innerHTML = data;
+            });
+    }
+</script>
 {% endblock %}
