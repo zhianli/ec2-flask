@@ -1,4 +1,5 @@
 import socket
+import time
 from flask import Flask, request, make_response, g, abort, url_for, render_template, redirect
 
 app = Flask(__name__)
@@ -57,6 +58,19 @@ def return_status(status_code):
     if status_code < 200 or status_code >= 600:
         abort(404)
     return f"Status code: {status_code}", status_code
+
+@app.route('/add_delay', methods=['GET', 'POST'])
+def add_delay():
+    if request.method == 'POST':
+        try:
+            delay = int(request.form['delay'])
+            if delay > 0:
+                time.sleep(delay)
+                return render_template('delay_finished.html', delay=delay)
+        except ValueError:
+            pass
+
+    return render_template('add_delay.html')
 
 if __name__ == "__main__":
     app.run(host=server_ip, port=80, debug=True)

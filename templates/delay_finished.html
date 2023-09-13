@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Delay Finished{% endblock %}
+
+{% block content %}
+  <h1>Delay Finished</h1>
+  <p>Delay of {{ delay }} seconds has finished.</p>
+  <p>Enter another delay:</p>
+  <form method="POST">
+    <label for="delay">Enter delay in seconds:</label>
+    <input type="number" name="delay" required>
+    <button type="submit">Start Delay</button>
+  </form>
+{% endblock %}
