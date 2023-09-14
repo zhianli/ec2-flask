@@ -3,6 +3,21 @@
 {% block title %}Random Number Generator{% endblock %}
 
 {% block content %}
+    <style>
+        /* Center align the countdown timer */
+        #interval-container {
+            text-align: center;
+        }
+
+        /* Increase font size */
+        .countdown .time {
+            font-size: 4em;
+            background-color: #323a45;
+            color: white;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    </style>
     <h1>Random Number Generator</h1>
     <form>
         <label for="min">Minimum Number:</label>
