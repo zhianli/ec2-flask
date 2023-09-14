@@ -14,6 +14,7 @@
         <button type="button" onclick="generateNumbers()">Generate Numbers</button>
     </form>
     <div id="result-container" style="font-size: 350px; color: red; text-align: center; vertical-align: middle;"></div>
+    <div id="history-container" style="font-size: 24px; color: black; text-align: left;"></div>
     <script>
         function generateNumbers() {
             var min = parseInt(document.getElementById("min").value);
@@ -26,18 +27,23 @@
             }
 
             var resultContainer = document.getElementById("result-container");
+            var historyContainer = document.getElementById("history-container");
             resultContainer.innerHTML = "";
+            historyContainer.innerHTML = "";
 
             // Generate random numbers and display them
             var interval = setInterval(function() {
                 var randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
                 resultContainer.innerHTML = "<p style='margin: 0;'>" + randomNum + "</p>";
+
+                // Append to historical numbers with space
+                historyContainer.innerHTML += randomNum + " ";
             }, 1000);
 
             // Stop generating numbers after the specified duration
             setTimeout(function() {
                 clearInterval(interval);
-                resultContainer.innerHTML = "<p style='font-size: 80px;'>Generation completed.</p>";
+                resultContainer.innerHTML = "<p style='font-size: 100px;'>Generation completed.</p>";
             }, duration * 1000);
         }
     </script>
