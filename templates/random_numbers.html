@@ -27,6 +27,7 @@
         var max = parseInt(document.getElementById("max").value);
         var duration = parseInt(document.getElementById("duration").value);
         var intervalValue = parseInt(document.getElementById("interval").value);
+        var originalIntervalValue = intervalValue; // Store the original interval value
 
         if (isNaN(min) || isNaN(max) || isNaN(duration) || isNaN(intervalValue)) {
             alert("Please enter valid numbers.");
@@ -52,16 +53,21 @@
             );
         }
 
-        // Countdown timer for the interval
-        var intervalTimer = setInterval(function () {
-            intervalValue -= 10; // Subtract 10 milliseconds
-            document.getElementById("interval-time").textContent = formatTime(intervalValue);
+        // Function to start the interval countdown
+        function startIntervalCountdown() {
+            intervalValue = originalIntervalValue; // Reset intervalValue to its original value
 
-            if (intervalValue <= 0) {
-                clearInterval(intervalTimer);
-                document.getElementById("interval-time").textContent = "00:00.000";
-            }
-        }, 10);
+            // Countdown timer for the interval
+            var intervalTimer = setInterval(function () {
+                intervalValue -= 10; // Subtract 10 milliseconds
+                document.getElementById("interval-time").textContent = formatTime(intervalValue);
+
+                if (intervalValue <= 0) {
+                    clearInterval(intervalTimer);
+                    document.getElementById("interval-time").textContent = "00:00.000";
+                }
+            }, 10);
+        }
 
         // Generate random numbers and display them at the specified interval
         var generateTimer = setInterval(function () {
@@ -70,12 +76,14 @@
 
             // Append to historical numbers with space
             historyContainer.innerHTML += randomNum + " ";
-        }, intervalValue);
+
+            // Start the interval countdown
+            startIntervalCountdown();
+        }, originalIntervalValue);
 
         // Stop generating numbers and timers after the specified duration
         setTimeout(function () {
             clearInterval(generateTimer);
-            clearInterval(intervalTimer);
             resultContainer.innerHTML = "<p style='font-size: 100px;'>Generation completed.</p>";
             document.getElementById("interval-time").textContent = "00:00.000";
         }, duration * 1000);
