@@ -69,17 +69,23 @@
             }, 10);
         }
 
-        // Generate random numbers and display them at the specified interval
-        var generateTimer = setInterval(function () {
+        // Function to generate a random number and reset the interval countdown
+        function generateRandomNumber() {
             var randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
             resultContainer.innerHTML = "<p style='margin: 0;'>" + randomNum + "</p>";
 
             // Append to historical numbers with space
             historyContainer.innerHTML += randomNum + " ";
 
-            // Start the interval countdown
+            // Reset and start the interval countdown for the next iteration
             startIntervalCountdown();
-        }, originalIntervalValue);
+        }
+
+        // Start the interval countdown before generating numbers
+        startIntervalCountdown();
+
+        // Generate random numbers and display them at the specified interval
+        var generateTimer = setInterval(generateRandomNumber, originalIntervalValue);
 
         // Stop generating numbers and timers after the specified duration
         setTimeout(function () {
