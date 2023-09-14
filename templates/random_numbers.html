@@ -11,6 +11,8 @@
         <input type="number" id="max" required value="10"><br>
         <label for="duration">Duration (seconds):</label>
         <input type="number" id="duration" required value="5"><br>
+        <label for="interval">Interval (milliseconds):</label>
+        <input type="number" id="interval" required value="1000"><br>
         <button type="button" onclick="generateNumbers()">Generate Numbers</button>
     </form>
     <div id="result-container" style="font-size: 350px; color: red; text-align: center; vertical-align: middle;"></div>
@@ -20,8 +22,9 @@
             var min = parseInt(document.getElementById("min").value);
             var max = parseInt(document.getElementById("max").value);
             var duration = parseInt(document.getElementById("duration").value);
+            var intervalValue = parseInt(document.getElementById("interval").value);
 
-            if (isNaN(min) || isNaN(max) || isNaN(duration)) {
+            if (isNaN(min) || isNaN(max) || isNaN(duration) || isNaN(intervalValue)) {
                 alert("Please enter valid numbers.");
                 return;
             }
@@ -31,14 +34,14 @@
             resultContainer.innerHTML = "";
             historyContainer.innerHTML = "";
 
-            // Generate random numbers and display them
+            // Generate random numbers and display them at the specified interval
             var interval = setInterval(function() {
                 var randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
                 resultContainer.innerHTML = "<p style='margin: 0;'>" + randomNum + "</p>";
 
                 // Append to historical numbers with space
                 historyContainer.innerHTML += randomNum + " ";
-            }, 1000);
+            }, intervalValue);
 
             // Stop generating numbers after the specified duration
             setTimeout(function() {
