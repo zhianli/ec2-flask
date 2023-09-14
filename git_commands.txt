@@ -1,0 +1,31 @@
+# Step 1: Create a new branch named "feature-branch" and switch to it
+git checkout -b feature-branch
+
+# Step 2: Make changes to your project files (edit, add, or delete files)
+
+# Step 3: Stage your changes for commit
+git add .
+
+# Step 4: Commit your changes with a descriptive message
+git commit -m "Step 4: Add new feature XYZ"
+
+# Step 5 (Optional): Push your branch to a remote repository
+git push origin feature-branch
+
+# Step 6: Switch to the main branch
+git checkout main
+
+# Step 7: Merge your feature branch into the main branch
+git merge feature-branch
+
+# Step 8 (Optional): Push the changes to the main branch in the remote repository
+git push origin main
+
+# Step 9 (Optional): Delete the feature branch if it's no longer needed
+git branch -d feature-branch
+
+
+
+Additional commands;
+git branch
+git status
