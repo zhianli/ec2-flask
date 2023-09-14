@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Random Number Generator{% endblock %}
+
+{% block content %}
+    <h1>Random Number Generator</h1>
+    <form>
+        <label for="min">Minimum Number:</label>
+        <input type="number" id="min" required value="0"><br>
+        <label for="max">Maximum Number:</label>
+        <input type="number" id="max" required value="10"><br>
+        <label for="duration">Duration (seconds):</label>
+        <input type="number" id="duration" required value="5"><br>
+        <button type="button" onclick="generateNumbers()">Generate Numbers</button>
+    </form>
+    <div id="result-container" style="font-size: 350px; color: red; text-align: center; vertical-align: middle;"></div>
+    <script>
+        function generateNumbers() {
+            var min = parseInt(document.getElementById("min").value);
+            var max = parseInt(document.getElementById("max").value);
+            var duration = parseInt(document.getElementById("duration").value);
+
+            if (isNaN(min) || isNaN(max) || isNaN(duration)) {
+                alert("Please enter valid numbers.");
+                return;
+            }
+
+            var resultContainer = document.getElementById("result-container");
+            resultContainer.innerHTML = "";
+
+            // Generate random numbers and display them
+            var interval = setInterval(function() {
+                var randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+                resultContainer.innerHTML = "<p style='margin: 0;'>" + randomNum + "</p>";
+            }, 1000);
+
+            // Stop generating numbers after the specified duration
+            setTimeout(function() {
+                clearInterval(interval);
+                resultContainer.innerHTML = "<p style='font-size: 80px;'>Generation completed.</p>";
+            }, duration * 1000);
+        }
+    </script>
+{% endblock %}
