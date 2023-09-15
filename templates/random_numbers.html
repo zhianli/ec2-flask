@@ -68,6 +68,18 @@
             );
         }
 
+        // Calculate the number of random numbers to generate based on duration and interval
+        var numRandomNumbers = Math.round(duration * 1000 / intervalValue);
+
+        // Generate an array to store random numbers
+        var randomNumbers = [];
+        for (var i = 0; i < numRandomNumbers; i++) {
+            var randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+            randomNumbers.push(randomNum);
+        }
+
+        var currentRandomIndex = 0; // Track the current random number being displayed
+
         // Function to start the interval countdown
         function startIntervalCountdown() {
             intervalValue = originalIntervalValue; // Reset intervalValue to its original value
@@ -80,34 +92,22 @@
                 if (intervalValue <= 0) {
                     clearInterval(intervalTimer);
                     document.getElementById("interval-time").textContent = "00:00.000";
+                    // Display the next random number
+                    if (currentRandomIndex < numRandomNumbers) {
+                        resultContainer.innerHTML = "<p style='margin: 0;'>" + randomNumbers[currentRandomIndex] + "</p>";
+                        // Append to historical numbers with space
+                        historyContainer.innerHTML += randomNumbers[currentRandomIndex] + " ";
+                        currentRandomIndex++;
+                        startIntervalCountdown(); // Start the countdown for the next random number
+                    } else {
+                        resultContainer.innerHTML = "<p style='font-size: 100px;'>Generation completed.</p>";
+                    }
                 }
             }, 10);
         }
 
-        // Function to generate a random number and reset the interval countdown
-        function generateRandomNumber() {
-            var randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
-            resultContainer.innerHTML = "<p style='margin: 0;'>" + randomNum + "</p>";
-
-            // Append to historical numbers with space
-            historyContainer.innerHTML += randomNum + " ";
-
-            // Reset and start the interval countdown for the next iteration
-            startIntervalCountdown();
-        }
-
         // Start the interval countdown before generating numbers
         startIntervalCountdown();
-
-        // Generate random numbers and display them at the specified interval
-        var generateTimer = setInterval(generateRandomNumber, originalIntervalValue);
-
-        // Stop generating numbers and timers after the specified duration
-        setTimeout(function () {
-            clearInterval(generateTimer);
-            resultContainer.innerHTML = "<p style='font-size: 100px;'>Generation completed.</p>";
-            document.getElementById("interval-time").textContent = "00:00.000";
-        }, duration * 1000);
     }
 </script>
 {% endblock %}
