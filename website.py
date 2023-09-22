@@ -76,5 +76,9 @@ def add_delay():
 def generate_numbers():
     return render_template('random_numbers.html')
 
+@app.route('/badminton')
+def badminton():
+    return render_template('badminton.html')
+
 if __name__ == "__main__":
     app.run(host=server_ip, port=80, debug=True)
