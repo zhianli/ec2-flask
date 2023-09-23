@@ -3,17 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Square</title>
+    <title>Badminton Footwork Practice</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div class="square-container">
-        <div class="corner" id="corner1"></div>
-        <div class="corner" id="corner2"></div>
-        <div class="corner" id="corner3"></div>
-        <div class="corner" id="corner4"></div>
+    <div class="court">
+        <!-- 6 squares with IDs square1 to square6 -->
+        <div class="square" id="square1"></div>
+        <div class="square" id="square2"></div>
+        <div class="square" id="square3"></div>
+        <div class="square" id="square4"></div>
+        <div class="square" id="square5"></div>
+        <div class="square" id="square6"></div>
     </div>
-    <button id="generate-button">Generate Random Number</button>
+    <div class="controls">
+        <label for="duration">Duration (seconds):</label>
+        <input type="number" id="duration" min="1">
+        <label for="interval">Interval (milliseconds):</label>
+        <input type="number" id="interval" min="100">
+        <button id="start-button">Start</button>
+    </div>
+    <div class="countdown" id="countdown"></div>
+    <div class="output" id="output"></div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

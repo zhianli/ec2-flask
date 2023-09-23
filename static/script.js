@@ -1,14 +1,56 @@
-document.getElementById('generate-button').addEventListener('click', function() {
-    // Generate a random number between 1 and 4
-    const randomNumber = Math.floor(Math.random() * 4) + 1;
-    
-    // Reset all corners to their default state (not lit up)
-    const corners = document.querySelectorAll('.corner');
-    corners.forEach(corner => {
-        corner.style.backgroundColor = 'transparent';
-    });
-    
-    // Light up the corner based on the generated number
-    const cornerToLightUp = document.getElementById(`corner${randomNumber}`);
-    cornerToLightUp.style.backgroundColor = 'yellow';
-});
+document.getElementById('start-button').addEventListener('click', startPractice);
+
+function startPractice() {
+    const duration = parseInt(document.getElementById('duration').value) * 1000; // Convert to milliseconds
+    const interval = parseInt(document.getElementById('interval').value);
+    const totalRandomNumbers = duration / interval;
+
+    const countdownElement = document.getElementById('countdown');
+    const outputElement = document.getElementById('output');
+    const squares = document.querySelectorAll('.square');
+
+    function updateCountdown(remaining) {
+        const minutes = Math.floor(remaining / 60000);
+        const seconds = Math.floor((remaining % 60000) / 1000);
+        const milliseconds = remaining % 1000;
+        countdownElement.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${String(milliseconds).padStart(3, '0')}`;
+    }
+
+    function generateRandomNumbers() {
+        const randomNumbers = [];
+        for (let i = 0; i < totalRandomNumbers; i++) {
+            randomNumbers.push(Math.floor(Math.random() * 6) + 1);
+        }
+        return randomNumbers;
+    }
+
+    const randomNumbers = generateRandomNumbers();
+    let currentIndex = 0;
+    let countdown = duration;
+
+    updateCountdown(countdown);
+
+    const intervalId = setInterval(() => {
+        if (currentIndex < totalRandomNumbers) {
+            const randomNumber = randomNumbers[currentIndex];
+            highlightSquare(randomNumber);
+            outputElement.textContent = `Current Number: ${randomNumber}`;
+            currentIndex++;
+        } else {
+            clearInterval(intervalId);
+            countdownElement.textContent = 'Practice Complete';
+            outputElement.textContent = '';
+        }
+        countdown -= interval;
+        updateCountdown(countdown);
+    }, interval);
+}
+
+function highlightSquare(randomNumber) {
+    const square = document.getElementById(`square${randomNumber}`);
+    square.style.backgroundColor = 'yellow';
+
+    setTimeout(() => {
+        square.style.backgroundColor = 'white';
+    }, 500); // Remove the highlight after a short delay (e.g., 500ms)
+}
