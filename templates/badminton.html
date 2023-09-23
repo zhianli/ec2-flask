@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Badminton Footwork Practice</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <div class="court">
@@ -18,13 +18,13 @@
     </div>
     <div class="controls">
         <label for="duration">Duration (seconds):</label>
-        <input type="number" id="duration" min="1">
+        <input type="number" id="duration" min="1" value="60">
         <label for="interval">Interval (milliseconds):</label>
-        <input type="number" id="interval" min="100">
+        <input type="number" id="interval" min="100" value="1000">
         <button id="start-button">Start</button>
     </div>
     <div class="countdown" id="countdown"></div>
     <div class="output" id="output"></div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
