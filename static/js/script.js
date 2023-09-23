@@ -48,9 +48,10 @@ function startPractice() {
 
 function highlightSquare(randomNumber) {
     const square = document.getElementById(`square${randomNumber}`);
-    square.style.backgroundColor = 'yellow';
+    const highlightInterval = parseInt(document.getElementById('interval').value)/2;
+    square.style.backgroundColor = 'red';
 
     setTimeout(() => {
         square.style.backgroundColor = 'white';
-    }, 500); // Remove the highlight after a short delay (e.g., 500ms)
+    }, highlightInterval); // Remove the highlight after a short delay (e.g., 500ms)
 }
