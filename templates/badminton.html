@@ -1,3 +1,4 @@
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,10 @@
     <title>Badminton Footwork Practice</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
-<body>
+<body> -->
+    {% extends "base.html" %}
+    {% block title %}Badminton Footwork Practice{% endblock %}
+    {% block content %}
     <div class="court">
         <img src="{{ url_for('static', filename='images/court.png') }}" alt="Badminton Court Image" class="court-image">
         <!-- 6 squares with IDs square1 to square6 -->
@@ -27,8 +31,9 @@
     <div class="countdown" id="countdown"></div>
     <div class="output" id="output"></div>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-</body>
-</html>
+    {% endblock %}
+<!-- </body>
+</html> -->
 
 
 
