@@ -7,21 +7,30 @@ body {
 }
 
 .court {
-    display: grid;
-    grid-template-columns: repeat(2, 200px);
-    grid-template-rows: repeat(3, 200px);
-    gap: 10px;
-    width: 50%;
+    position: relative;
+    width: 500px; /* Adjust the width as needed */
     margin: 20px auto;
-    padding: 10px;
+}
+
+.court-image {
+    width: 100%;
+    height: auto;
 }
 
 .square {
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    border: 1px solid #000;
+    width: 80px; /* Adjust the square size as needed */
+    height: 80px; /* Adjust the square size as needed */
+    background-color: transparent;
+    position: absolute;
 }
+
+/* Position squares within the image */
+#square1 { top: 0; left: 0; } /* Top left corner */
+#square2 { top: 0; right: 0; } /* Top right corner */
+#square3 { top: 50%; left: 0; transform: translate(0, -50%); } /* Middle left */
+#square4 { top: 50%; right: 0; transform: translate(0, -50%); } /* Middle right */
+#square5 { bottom: 0; left: 0; } /* Bottom left corner */
+#square6 { bottom: 0; right: 0; } /* Bottom right corner */
 
 .controls {
     margin-top: 20px;
