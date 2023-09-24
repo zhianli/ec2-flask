@@ -5,6 +5,10 @@ body {
     padding: 0;
 }
 
+.controls {
+    text-align: center;
+}
+
 .court {
     position: relative;
     width: 500px; /* Adjust the width as needed */
@@ -21,6 +25,14 @@ body {
     height: 80px; /* Adjust the square size as needed */
     background-color: transparent;
     position: absolute;
+}
+
+.countdown#countdown {
+    text-align: center;
+}
+
+.output#output {
+    text-align: center;
 }
 
 /* Position squares within the image */
