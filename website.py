@@ -72,13 +72,13 @@ def add_delay():
 
     return render_template('add_delay.html')
 
-@app.route('/generate_numbers', methods=['GET'])
-def generate_numbers():
-    return render_template('random_numbers.html')
+# @app.route('/generate_numbers', methods=['GET'])
+# def generate_numbers():
+#     return render_template('random_numbers.html')
 
-@app.route('/badminton')
-def badminton():
-    return render_template('badminton.html')
+# @app.route('/badminton')
+# def badminton():
+#     return render_template('badminton.html')
 
 if __name__ == "__main__":
     app.run(host=server_ip, port=80, debug=True)
